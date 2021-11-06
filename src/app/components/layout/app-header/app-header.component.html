@@ -1,0 +1,35 @@
+<header>
+  <a routerLink="country" class="logo">
+    <strong>LOGO</strong>
+  </a>
+  <nav>
+    <ul>
+      <li>
+        <a routerLink="country" routerLinkActive="active">Country</a>
+      </li>
+      <li>
+        <a routerLink="city" routerLinkActive="active">City</a>
+      </li>
+      <li *ngIf="!isLoggedIn && !checkUserLogin">
+        <a routerLink="login" routerLinkActive="active">
+          Login <mat-icon>login</mat-icon>
+        </a>
+      </li>
+      <li *ngIf="isLoggedIn || checkUserLogin">
+        <a [matMenuTriggerFor]="menu">
+          <mat-icon>account_circle</mat-icon>
+          <span
+            class="user-account"
+            matTooltip="{{ currentUser.email || userEmail }}"
+          >
+            Hello, {{ currentUser.email || userEmail }}
+          </span>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </a>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="handleLogout()">Logout</button>
+        </mat-menu>
+      </li>
+    </ul>
+  </nav>
+</header>

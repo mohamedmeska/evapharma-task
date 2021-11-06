@@ -1,0 +1,56 @@
+<div class="city-modal">
+  <div class="modal-header">
+    <button mat-icon-button (click)="handleCloseCityModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form *ngIf="!isRemove" [formGroup]="cityModalFormGroup" (ngSubmit)="handleCityModalSubmit()">
+      <div class="form-group">
+        <label for="cityName">
+          <strong>{{ action | uppercase }}</strong> - City <span class="required-field">*</span>
+        </label>
+        <input
+          type="text"
+          formControlName="cityName"
+          name="city-name"
+          id="city-name"
+          placeholder="Type your City Name"
+        />
+        <div
+          *ngIf="
+            cityModalFormGroup.controls.cityName.dirty &&
+            cityModalFormGroup.controls.cityName.errors
+          "
+          class="input-errors city-name-errors"
+        >
+          <p *ngIf="cityModalFormGroup.controls.cityName.errors.required">
+            This field is required!
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [mat-dialog-close]="data"
+          [disabled]="!cityModalFormGroup.valid"
+        >
+          {{ action | titlecase}} City
+        </button>
+      </div>
+    </form>
+    <div *ngIf="isRemove" class="removed-country">
+      <h3>Are You Sure, You Will Remove <strong>{{city?.name}}</strong> City</h3>
+      <button
+          mat-flat-button
+          color="primary"
+          (click)="handleCityModalSubmit()"
+          [mat-dialog-close]="data"
+        >
+          {{ action | titlecase}} City
+        </button>
+    </div>
+  </div>
+</div>

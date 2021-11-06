@@ -1,0 +1,79 @@
+<div class="page-wrapper">
+  <div class="page-header">
+    <h3>{{countryPageHeader}}</h3>
+    <button
+      *ngIf="!countryId"
+      mat-flat-button
+      color="primary"
+      (click)="handleOpenCountryModal('add', null)"
+    >
+      <mat-icon>add</mat-icon> ADD NEW COUNTRY
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+  <div *ngIf="!countryId" class="country-search-input">
+    <input
+      type="text"
+      placeholder="Type Country Name"
+      [(ngModel)]="countrySearchInputValue"
+    />
+  </div>
+  <mat-divider *ngIf="!countryId"></mat-divider>
+  <div class="page-body">
+    <ul *ngIf="countryList.length" class="country-list">
+      <li
+        class="country-item"
+        *ngFor="let country of countryList | filterList: countrySearchInputValue; let i = index"
+      >
+        <div class="country-order">
+          <span>{{ i + 1 }}</span>
+        </div>
+        <div class="county-info">
+          <h4 class="country-name">{{ country.name }}</h4>
+          <div class="country-actions">
+            <button
+              mat-flat-button
+              color="primary"
+              matTooltip="Visit {{ country.name }}"
+              [routerLink]="['/country', country.id]"
+            >
+              <mat-icon>link</mat-icon>
+            </button>
+            <button
+              mat-flat-button
+              [style.color]="'white'"
+              [style.backgroundColor]="'black'"
+              matTooltip="Preview {{ country.name }} Cities"
+              [routerLink]="['/country', country.id, 'city']"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button
+              mat-flat-button
+              color="accent"
+              matTooltip="Update {{ country.name }} Country"
+              (click)="handleOpenCountryModal('update', country)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-flat-button
+              color="warn"
+              matTooltip="Remove {{ country.name }} Country"
+              (click)="handleOpenCountryModal('remove', country)"
+            >
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div *ngIf="!isLoading && !countryList.length" class="no-country">
+      <h3>There IS No Countries To Show!</h3>
+      <p>
+        You Can Click <strong>'ADD NEW COUNTRY'</strong> Button To Add The First
+        Country
+      </p>
+    </div>
+  </div>
+</div>

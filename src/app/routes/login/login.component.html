@@ -1,0 +1,65 @@
+<div class="page-wrapper">
+  <div class="login-form">
+    <div class="login-form-header">
+      <h3>LOGIN FORM</h3>
+    </div>
+    <div class="login-form-body">
+      <form [formGroup]="loginFormGroup" (ngSubmit)="handleLoginSubmit()">
+        <div class="form-group">
+          <label for="email">
+            Email <span class="required-field">*</span>
+          </label>
+          <input
+            type="email"
+            formControlName="email"
+            name="email"
+            id="email"
+            placeholder="Type your email"
+          />
+          <div
+            *ngIf="
+              loginFormGroup.controls.email.dirty &&
+              loginFormGroup.controls.email.errors
+            "
+            class="input-errors email-errors"
+          >
+            <p *ngIf="loginFormGroup.controls.email.errors.required">
+              This field is required!
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">
+            Password <span class="required-field">*</span>
+          </label>
+          <input
+            type="password"
+            formControlName="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+          />
+          <div
+            *ngIf="
+              loginFormGroup.controls.password.dirty &&
+              loginFormGroup.controls.password.errors
+            "
+            class="input-errors password-errors"
+          >
+            <p *ngIf="loginFormGroup.controls.password.errors.required">
+              This field is required!
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <input
+            type="submit"
+            value="Login"
+            [disabled]="!loginFormGroup.valid"
+            [ngClass]="{'disabled': !loginFormGroup.valid}"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
