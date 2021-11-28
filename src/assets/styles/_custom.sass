@@ -1,0 +1,38 @@
+@import './partials/variables'
+
+// custom form style
+form
+  display: flex
+  flex-direction: column
+  gap: 20px
+
+  .form-group
+    display: flex
+    flex-direction: column
+
+    label
+      margin-bottom: 5px
+      font-size: 17px
+
+      .required-field
+        color: red
+
+    input
+      padding: 10px
+      font-size: 15px
+
+    input[type='submit']
+      border: none
+      font-weight: bold
+      color: $whiteColor
+      background-color: $secondColor
+      cursor: pointer
+
+      &.disabled
+        opacity: 0.75
+        cursor: no-drop
+
+    .input-errors
+      p
+        margin: 0
+        color: #f00

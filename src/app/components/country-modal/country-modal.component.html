@@ -1,0 +1,56 @@
+<div class="country-modal">
+  <div class="modal-header">
+    <button mat-icon-button (click)="handleCloseCountryModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form *ngIf="!isRemove" [formGroup]="countryModalFormGroup" (ngSubmit)="handleCountryModalSubmit()">
+      <div class="form-group">
+        <label for="countryName">
+          <strong>{{ action | uppercase }}</strong> - Country <span class="required-field">*</span>
+        </label>
+        <input
+          type="text"
+          formControlName="countryName"
+          name="country-name"
+          id="country-name"
+          placeholder="Type your Country Name"
+        />
+        <div
+          *ngIf="
+            countryModalFormGroup.controls.countryName.dirty &&
+            countryModalFormGroup.controls.countryName.errors
+          "
+          class="input-errors country-name-errors"
+        >
+          <p *ngIf="countryModalFormGroup.controls.countryName.errors.required">
+            This field is required!
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [mat-dialog-close]="data"
+          [disabled]="!countryModalFormGroup.valid"
+        >
+          {{ action | titlecase}} Country
+        </button>
+      </div>
+    </form>
+    <div *ngIf="isRemove" class="removed-country">
+      <h3>Are You Sure, You Will Remove <strong>{{country?.name}}</strong> Country</h3>
+      <button
+          mat-flat-button
+          color="primary"
+          (click)="handleCountryModalSubmit()"
+          [mat-dialog-close]="data"
+        >
+          {{ action | titlecase}} Country
+        </button>
+    </div>
+  </div>
+</div>

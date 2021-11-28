@@ -1,0 +1,67 @@
+<div class="page-wrapper">
+  <div class="page-header">
+    <h3>{{cityPageHeader}}</h3>
+    <button
+      *ngIf="countryId"
+      mat-flat-button
+      color="primary"
+      (click)="handleOpenCityModal('add', null)"
+    >
+      <mat-icon>add</mat-icon> ADD NEW CITY
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+  <div *ngIf="countryId || !cityId" class="city-search-input">
+    <input
+      type="text"
+      placeholder="Type City Name"
+      [(ngModel)]="citySearchInputValue"
+    />
+  </div>
+  <mat-divider *ngIf="countryId || !cityId"></mat-divider>
+  <div class="page-body">
+    <ul *ngIf="cityList.length" class="city-list">
+      <li class="city-item" *ngFor="let city of cityList | filterList: citySearchInputValue; let i = index">
+        <div class="city-order">
+          <span>{{ i + 1 }}</span>
+        </div>
+        <div class="city-info">
+          <h4 class="city-name">{{ city.name }}</h4>
+          <div class="city-actions">
+            <button
+              mat-flat-button
+              color="primary"
+              matTooltip="Visit {{ city.name }}"
+              [routerLink]="['/city', city.id]"
+            >
+              <mat-icon>link</mat-icon>
+            </button>
+            <button
+              mat-flat-button
+              color="accent"
+              matTooltip="Update {{ city.name }} City"
+              (click)="handleOpenCityModal('update', city)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-flat-button
+              color="warn"
+              matTooltip="Remove {{ city.name }} City"
+              (click)="handleOpenCityModal('remove', city)"
+            >
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div *ngIf="!isLoading && !cityList.length" class="no-city">
+      <h3>There IS No Cities To Show!</h3>
+      <p>
+        You Can Click <strong>'ADD NEW City'</strong> Button To Add The First
+        City
+      </p>
+    </div>
+  </div>
+</div>
